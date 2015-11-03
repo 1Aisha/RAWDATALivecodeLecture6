@@ -34,5 +34,24 @@ namespace WebService.Controllers
                 HttpStatusCode.OK
                 , _modelFactory.Create(person, helper));
         }
+
+        public HttpResponseMessage Post([FromBody] PersonModel model)
+        {
+            var helper = new UrlHelper(Request);
+            var person = _modelFactory.Parse(model);
+            _personRepository.Add(person);
+            return Request.CreateResponse(
+                HttpStatusCode.Created
+                , _modelFactory.Create(person, helper));
+        }
+
+        public HttpResponseMessage Put(int id, [FromBody] PersonModel model)
+        {
+            var helper = new UrlHelper(Request);
+            var person = _modelFactory.Parse(model);
+            person.Id = id;
+            _personRepository.Update(person);
+            return Request.CreateResponse(HttpStatusCode.OK);
+        }
     }
 }

@@ -29,5 +29,14 @@ namespace WebService.Models
                 Gender = person.Gender
             };
         }
+
+        public Person Parse(PersonModel model)
+        {
+            return new Person
+            {
+                Name = model.Name,
+                Gender = model.Gender
+            };
+        }
     }
 }
