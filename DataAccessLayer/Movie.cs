@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace WebService.Models
+namespace DataAccessLayer
 {
     public class Movie
     {

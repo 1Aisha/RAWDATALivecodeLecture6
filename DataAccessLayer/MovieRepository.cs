@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using MySql.Data.MySqlClient;
-using WebService.Models;
 
-namespace WebService.DAL
+namespace DataAccessLayer
 {
     public class MovieRepository
     {

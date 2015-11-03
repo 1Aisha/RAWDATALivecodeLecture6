@@ -1,25 +1,36 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
-using WebService.DAL;
+using System.Web.Http.Routing;
+using DataAccessLayer;
 using WebService.Models;
 
 namespace WebService.Controllers
 {
     public class MoviesController : ApiController
     {
+        ModelFactory _modelFactory = new ModelFactory();
         MovieRepository _movieRepository = new MovieRepository();
-        public IEnumerable<Movie> Get()
+        public IEnumerable<MovieModel> Get()
         {
-            return _movieRepository.GetAll();
+            var helper = new UrlHelper(Request);
+            return _movieRepository.GetAll()
+                .Select(movie => _modelFactory.Create(movie, helper));
         }
 
-        public Movie Get(int id)
+        public HttpResponseMessage Get(int id)
         {
-            return _movieRepository.GetById(id);
+            var helper =  new UrlHelper(Request);
+            var movie = _movieRepository.GetById(id);
+            if (movie == null)
+            {
+                return Request.CreateResponse(HttpStatusCode.NotFound);
+            }
+            return Request.CreateResponse(
+                HttpStatusCode.OK
+                ,_modelFactory.Create(movie, helper));
         }
     }
 }
