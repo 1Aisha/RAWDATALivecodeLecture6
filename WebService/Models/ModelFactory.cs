@@ -18,5 +18,15 @@ namespace WebService.Models
                 Year = movie.Year
             };
         }
+
+        public PersonModel Create(Person person, UrlHelper urlHelper)
+        {
+            return new PersonModel
+            {
+                Url = urlHelper.Link("MovieApi", new { id = person.Id }),
+                Name = person.Name,
+                Gender = person.Gender
+            };
+        }
     }
 }
