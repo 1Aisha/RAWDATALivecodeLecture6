@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace DataAccessLayer
 {
+    /// <summary>
+    /// The domain model for persons
+    /// </summary>
     public class Person
     {
         public int Id { get; set; }

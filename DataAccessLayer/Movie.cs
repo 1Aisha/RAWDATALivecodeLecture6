@@ -5,6 +5,10 @@ using System.Web;
 
 namespace DataAccessLayer
 {
+    /// <summary>
+    /// The domain model for movies
+    /// 
+    /// </summary>
     public class Movie
     {
         public int Id { get; set; }

@@ -21,6 +21,12 @@ namespace WebService
             );
 
             config.Routes.MapHttpRoute(
+                name: "MovieInfoApi",
+                routeTemplate: "api/movies/{movieid}/info/{id}",
+                defaults: new { controller = "MovieInfos", id = RouteParameter.Optional }
+            );
+
+            config.Routes.MapHttpRoute(
                 name: "MovieApi",
                 routeTemplate: "api/movies/{id}",
                 defaults: new {controller = "Movies", id = RouteParameter.Optional}
