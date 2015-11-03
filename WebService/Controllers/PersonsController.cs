@@ -10,10 +10,11 @@ using WebService.Models;
 
 namespace WebService.Controllers
 {
-    public class PersonController : ApiController
+    public class PersonsController : ApiController
     {
         ModelFactory _modelFactory = new ModelFactory();
         PersonRepository _personRepository = new PersonRepository();
+
         public IEnumerable<PersonModel> Get()
         {
             var helper = new UrlHelper(Request);

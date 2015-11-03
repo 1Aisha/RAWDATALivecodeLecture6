@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Web;
 using System.Web.Http.Routing;
 using DataAccessLayer;
@@ -9,7 +10,7 @@ namespace WebService.Models
 {
     public class ModelFactory
     {
-        public MovieModel Create(Movie movie, UrlHelper urlHelper)
+ public MovieModel Create(Movie movie, UrlHelper urlHelper)
         {
             return new MovieModel
             {
@@ -23,7 +24,7 @@ namespace WebService.Models
         {
             return new PersonModel
             {
-                Url = urlHelper.Link("MovieApi", new { id = person.Id }),
+                Url = urlHelper.Link("PersonApi", new { id = person.Id }),
                 Name = person.Name,
                 Gender = person.Gender
             };

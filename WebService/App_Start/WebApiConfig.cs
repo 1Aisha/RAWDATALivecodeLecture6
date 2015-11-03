@@ -15,6 +15,12 @@ namespace WebService
             config.MapHttpAttributeRoutes();
 
             config.Routes.MapHttpRoute(
+                name: "PersonApi",
+                routeTemplate: "api/persons/{id}",
+                defaults: new { controller = "Persons", id = RouteParameter.Optional }
+            );
+
+            config.Routes.MapHttpRoute(
                 name: "MovieApi",
                 routeTemplate: "api/movies/{id}",
                 defaults: new {controller = "Movies", id = RouteParameter.Optional}
