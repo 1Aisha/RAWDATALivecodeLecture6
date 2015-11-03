@@ -9,15 +9,15 @@ using WebService.Models;
 
 namespace WebService.Controllers
 {
-    public class MoviesController : ApiController
+    public class MoviesController : BaseApiController
     {
-        ModelFactory _modelFactory = new ModelFactory();
         MovieRepository _movieRepository = new MovieRepository();
+
         public IEnumerable<MovieModel> Get()
         {
             var helper = new UrlHelper(Request);
             return _movieRepository.GetAll()
-                .Select(movie => _modelFactory.Create(movie, helper));
+                                   .Select(movie => ModelFactory.Create(movie));
         }
 
         public HttpResponseMessage Get(int id)
@@ -28,9 +28,7 @@ namespace WebService.Controllers
             {
                 return Request.CreateResponse(HttpStatusCode.NotFound);
             }
-            return Request.CreateResponse(
-                HttpStatusCode.OK
-                ,_modelFactory.Create(movie, helper));
+            return Request.CreateResponse(HttpStatusCode.OK, ModelFactory.Create(movie));
         }
     }
 }

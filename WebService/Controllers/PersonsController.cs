@@ -13,9 +13,9 @@ namespace WebService.Controllers
     /// <summary>
     /// The person controller handles request about persons
     /// </summary>
-    public class PersonsController : ApiController
+    public class PersonsController : BaseApiController
     {
-        ModelFactory _modelFactory = new ModelFactory();
+        
         PersonRepository _personRepository = new PersonRepository();
 
         // get
@@ -23,8 +23,10 @@ namespace WebService.Controllers
         {
             var helper = new UrlHelper(Request);
             return _personRepository.GetAll()
-                .Select(person => _modelFactory.Create(person, helper));
+                .Select(person => ModelFactory.Create(person));
         }
+
+        
 
         // get by id
         public HttpResponseMessage Get(int id)
@@ -37,7 +39,7 @@ namespace WebService.Controllers
             }
             return Request.CreateResponse(
                 HttpStatusCode.OK
-                , _modelFactory.Create(person, helper));
+                , ModelFactory.Create(person));
         }
 
         // add
@@ -46,14 +48,14 @@ namespace WebService.Controllers
             // url helper to construct the url
             var helper = new UrlHelper(Request);
             // convert from PersonModel to Person
-            var person = _modelFactory.Parse(model);
+            var person = ModelFactory.Parse(model);
             // add the person
             _personRepository.Add(person);
             // convert the Person to PersonModel
             // and return
             return Request.CreateResponse(
                 HttpStatusCode.Created
-                , _modelFactory.Create(person, helper));
+                , ModelFactory.Create(person));
         }
 
         // update
@@ -62,7 +64,7 @@ namespace WebService.Controllers
             // url helper to construct the url
             var helper = new UrlHelper(Request);
             // convert from PersonModel to Person
-            var person = _modelFactory.Parse(model);
+            var person = ModelFactory.Parse(model);
             // set the id
             person.Id = id;
             // update the person

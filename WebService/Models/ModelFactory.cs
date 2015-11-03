@@ -10,21 +10,30 @@ namespace WebService.Models
 {
     public class ModelFactory
     {
- public MovieModel Create(Movie movie, UrlHelper urlHelper)
+      
+        private UrlHelper _urlHelper;
+
+        // create the url helper with the injected request
+        public ModelFactory(HttpRequestMessage request)
+        {
+            _urlHelper = new UrlHelper(request);
+        } 
+
+        public MovieModel Create(Movie movie)
         {
             return new MovieModel
             {
-                Url = urlHelper.Link("MovieApi", new {id = movie.Id}),
+                Url = _urlHelper.Link("MovieApi", new { id = movie.Id }),
                 Title = movie.Title,
                 Year = movie.Year
             };
         }
 
-        public PersonModel Create(Person person, UrlHelper urlHelper)
+        public PersonModel Create(Person person)
         {
             return new PersonModel
             {
-                Url = urlHelper.Link("PersonApi", new { id = person.Id }),
+                Url = _urlHelper.Link("PersonApi", new { id = person.Id }),
                 Name = person.Name,
                 Gender = person.Gender
             };
