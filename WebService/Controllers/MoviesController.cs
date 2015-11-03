@@ -4,14 +4,22 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using WebService.DAL;
+using WebService.Models;
 
 namespace WebService.Controllers
 {
     public class MoviesController : ApiController
     {
-        public object Get()
+        MovieRepository _movieRepository = new MovieRepository();
+        public IEnumerable<Movie> Get()
         {
-            return "Hello Web Services";
+            return _movieRepository.GetAll();
+        }
+
+        public Movie Get(int id)
+        {
+            return _movieRepository.GetById(id);
         }
     }
 }
